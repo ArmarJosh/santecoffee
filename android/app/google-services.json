@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "712506219446",
+    "project_id": "santecoffee-2ffaf",
+    "storage_bucket": "santecoffee-2ffaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712506219446:android:82bbf8d1a1c99d02fbff17",
+        "android_client_info": {
+          "package_name": "com.santecoffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712506219446-7bv1n3ukddtkvf1ncg72c084dlbcu7mc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.santecoffee",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "712506219446-jg0j5it4l0jcgcbnghpem9069nkmvaja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD79HFRftpHpCCtb401rISb22supy2hCsw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712506219446-jg0j5it4l0jcgcbnghpem9069nkmvaja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
