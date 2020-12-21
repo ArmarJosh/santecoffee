@@ -24,7 +24,27 @@ class FarmerDetail extends Component {
       phone: '',
       phoneError: false,
       showActivity: false,
+
+      name: '',
+      phone: '',
+      region: '',
+      gender: '',
+      nationalIdUrl: '',
+      birthCertificateUrl: '',
     };
+  }
+
+  componentDidMount() {
+    const {d} = this.props.route.params;
+    console.log('detail: ', d);
+    this.setState({
+      name: `${d.firstName} ${d.secondName}`,
+      phone: d.phoneNumber,
+      region: d.region,
+      gender: d.gender,
+      nationalIdUrl: d.nationalId,
+      birthCertificateUrl: d.BirthCertificate,
+    });
   }
 
   setModalVisible(visible) {
@@ -41,14 +61,22 @@ class FarmerDetail extends Component {
     console.log(phone);
   };
   render() {
-    const {modalVisible, showActivity, phoneError} = this.state;
+    const {
+      modalVisible,
+      showActivity,
+      phoneError,
+      name,
+      phone,
+      region,
+      gender,
+    } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.detailView}>
             <View style={styles.genView}>
               <Text style={styles.keyText}>Name: </Text>
-              <Text style={styles.valueText}>Payton latter.</Text>
+              <Text style={styles.valueText}>{name}</Text>
             </View>
             <UnderLine
               strokeColor={colors.brown}
@@ -56,7 +84,7 @@ class FarmerDetail extends Component {
             />
             <View style={styles.genView}>
               <Text style={styles.keyText}>Phone: </Text>
-              <Text style={styles.valueText}>0772123123</Text>
+              <Text style={styles.valueText}>{phone}</Text>
             </View>
             <UnderLine
               strokeColor={colors.brown}
@@ -64,7 +92,7 @@ class FarmerDetail extends Component {
             />
             <View style={styles.genView}>
               <Text style={styles.keyText}>Region: </Text>
-              <Text style={styles.valueText}>Kabale</Text>
+              <Text style={styles.valueText}>{region}</Text>
             </View>
             <UnderLine
               strokeColor={colors.brown}
@@ -72,7 +100,7 @@ class FarmerDetail extends Component {
             />
             <View style={styles.genView}>
               <Text style={styles.keyText}>Gender: </Text>
-              <Text style={styles.valueText}>Male</Text>
+              <Text style={styles.valueText}>{gender}</Text>
             </View>
           </View>
           <View style={styles.imgView}>

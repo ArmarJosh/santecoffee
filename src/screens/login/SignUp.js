@@ -14,6 +14,7 @@ import {
 import {ButtonIcon, InputOutline} from '../../library/components';
 import colors from '../../res/colors';
 import images from '../../res/images';
+import {Auth, UserService} from '../../library/networking';
 
 class SignUp extends Component {
   constructor(props) {
@@ -29,7 +30,6 @@ class SignUp extends Component {
   }
 
   onHandelEmailValidation = (inputText) => {
-    console.log(inputText);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (reg.test(inputText)) {
       this.setState({email: inputText, emailError: false});
@@ -38,7 +38,7 @@ class SignUp extends Component {
     }
   };
 
-  onHandelSignup = () => {
+  onHandelSignup = async () => {
     const {email, password, emailError, rePassword} = this.state;
     if (password.length < 6) {
       this.setState({passwordError: true});
@@ -57,10 +57,50 @@ class SignUp extends Component {
         passwordError: false,
         showActivity: true,
       });
+
+      // Start sign Up logic
       console.log('call login function.');
-      // call the login function.
+      const auth = new Auth();
+      await auth
+        .onHandelSignUpWithEmailPassword(email, password)
+        .then(async (res) => {
+          console.log('res: ', res.user);
+
+          // Check auth state change and create user DB
+          await auth
+            .onAuthStateChange()
+            .then(async (user) => {
+              console.log('user: ', user.uid);
+              let uid = user.uid;
+              let email = user.email;
+              if (user) {
+                const userdb = new UserService();
+                await userdb
+                  .onCreateUserDB(uid, email)
+                  .then(async () => {
+                    await this.setState({showActivity: false, uid});
+                    this.props.navigation.navigate('Register');
+                  })
+                  .catch((e) => {
+                    console.log('user_error: ', e);
+                    alert('Error Saving');
+                    this.setState({showActivity: false});
+                  });
+              }
+            })
+            .catch((e) => {
+              console.log(e);
+              this.setState({showActivity: false});
+            });
+        })
+        .catch((e) => {
+          console.log(e);
+          this.setState({showActivity: false});
+          alert('Error Creating account.');
+        });
     }
   };
+
   render() {
     const {showActivity, emailError, passwordError} = this.state;
     return (

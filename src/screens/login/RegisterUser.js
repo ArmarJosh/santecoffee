@@ -11,11 +11,13 @@ import {
 import RNPickerSelect from 'react-native-picker-select';
 import colors from '../../res/colors';
 import {ButtonIcon, InputOutline} from '../../library/components';
+import {Auth, UserService} from '../../library/networking';
 
 class RegisterUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userID: '',
       firstName: '',
       secondName: '',
       phoneNumber: '',
@@ -32,8 +34,26 @@ class RegisterUser extends Component {
     };
   }
 
-  onHandelSave = () => {
-    const {firstName, secondName, phoneNumber, region, gender} = this.state;
+  async componentDidMount() {
+    const auth = new Auth();
+    await auth.onHandelGetUser().then(async (user) => {
+      console.log(user);
+      await this.setState({
+        userID: user.uid,
+        email: user.email,
+      });
+    });
+  }
+
+  onHandelSave = async () => {
+    const {
+      firstName,
+      secondName,
+      phoneNumber,
+      region,
+      gender,
+      userID,
+    } = this.state;
     if (firstName === '') {
       return alert("First name can't be empty");
     } else if (secondName === '') {
@@ -55,10 +75,27 @@ class RegisterUser extends Component {
         phoneNumberError: false,
         secondNameError: false,
         firstNameError: false,
+        showActivity: true,
       });
 
-      console.log('register');
-      // put the registration code here.
+      const db = new UserService();
+      await db
+        .onUpdateDatabase('users', userID, {
+          firstname: firstName,
+          secondname: secondName,
+          gender: gender,
+          phone: phoneNumber,
+          region: region,
+        })
+        .then(async () => {
+          console.log('update success');
+          await this.setState({showActivity: false});
+          this.props.navigation.push('Login');
+        })
+        .catch(async (e) => {
+          console.log('error updating db', e);
+          await this.setState({showActivity: false});
+        });
     }
   };
   render() {

@@ -15,6 +15,8 @@ import {
 import {ButtonIcon, InputOutline} from '../../library/components';
 import colors from '../../res/colors';
 import images from '../../res/images';
+import {AuthContext} from '../../context/app-context';
+import {Auth} from '../../library/networking';
 
 class Login extends Component {
   constructor(props) {
@@ -24,9 +26,29 @@ class Login extends Component {
       password: '',
       emailError: false,
       passwordError: false,
-      showActivity: false,
+      showActivity: true,
     };
   }
+
+  componentDidMount() {
+    this.onCheckIfLoggedIn();
+  }
+
+  onCheckIfLoggedIn = async () => {
+    this.setState({showActivity: true});
+    const User = new Auth();
+    await User.onAuthStateChange()
+      .then((user) => {
+        console.log('Logged in: ', user);
+        this.setState({showActivity: false});
+        this.context.signIn();
+      })
+      .catch((e) => {
+        console.log('error => ', e);
+        this.setState({showActivity: false});
+      });
+    return;
+  };
 
   onHandelEmailValidation = (inputText) => {
     console.log(inputText);
@@ -55,7 +77,19 @@ class Login extends Component {
         showActivity: true,
       });
       console.log('call login function.');
-      // call the login function.
+      const auth = new Auth();
+      auth
+        .onHandelLoginUserWithEmail(email, password)
+        .then(async (user) => {
+          console.log(user);
+          await this.setState({showActivity: false});
+          this.context.signIn();
+        })
+        .catch((e) => {
+          console.log('error sigining in ' + e);
+          this.setState({showActivity: false});
+          Alert.alert('Login Error', e.toString());
+        });
     }
   };
 
@@ -142,4 +176,5 @@ const styles = StyleSheet.create({
   },
 });
 
+Login.contextType = AuthContext;
 export default Login;

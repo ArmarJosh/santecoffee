@@ -1,10 +1,11 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useContext, useState, useEffect, useMemo} from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import colors from './src/res/colors';
+import {AuthContext} from './src/context/app-context';
 
 import {
   Login,
@@ -15,6 +16,8 @@ import {
   Farmers,
   FarmerDetail,
   Profile,
+  Splash,
+  UserInfo,
 } from './src/screens';
 
 const FarmersStackNav = createStackNavigator();
@@ -54,6 +57,11 @@ const HomeStackNavComponent = () => (
       name="AddFarmer"
       component={AddFarmer}
       options={{title: 'Add Farmer'}}
+    />
+    <HomeStackNav.Screen
+      name="UserInfo"
+      component={UserInfo}
+      options={{title: 'Complete Registration Details'}}
     />
   </HomeStackNav.Navigator>
 );
@@ -111,14 +119,45 @@ const AuthStackNav = () => (
       component={SignUp}
       options={{headerShown: false}}
     />
+    <AuthStack.Screen
+      name="Register"
+      component={RegisterUser}
+      options={{headerShown: false}}
+    />
   </AuthStack.Navigator>
 );
 const App = () => {
-  return (
-    <NavigationContainer>
-      <AppBottomTabNav />
-    </NavigationContainer>
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+  const authContext = useMemo(() => {
+    return {
+      signIn: () => {
+        setIsUserLoggedIn(true);
+      },
+      signOut: () => {
+        setIsUserLoggedIn(false);
+      },
+    };
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false); // This is for the splash screen.
+    }, 2000);
+  }, []);
+
+  if (isLoading) {
+    return <Splash />;
+  } else {
+    return (
+      <AuthContext.Provider value={authContext}>
+        <NavigationContainer>
+          {isUserLoggedIn ? <AppBottomTabNav /> : <AuthStackNav />}
+        </NavigationContainer>
+      </AuthContext.Provider>
+    );
+  }
 };
 
 export default App;

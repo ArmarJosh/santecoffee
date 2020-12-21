@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
   },
   btnText: {
     color: R.colors.white,

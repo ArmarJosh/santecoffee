@@ -4,22 +4,26 @@ import UnderLine from './Underline';
 import R from 'res/R';
 
 const FarmerCard = (props) => {
+  const {details} = props;
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={props.onPress}>
+      <TouchableOpacity onPress={() => props.farmerDetail(details)}>
         <View style={styles.genView}>
           <Text style={styles.keyText}>Name: </Text>
-          <Text style={styles.valueText}>Payton latter.</Text>
+          <Text style={styles.valueText}>
+            {`${details.firstName} ${details.secondName} `}
+          </Text>
         </View>
         <UnderLine />
         <View style={styles.genView}>
           <Text style={styles.keyText}>Phone: </Text>
-          <Text style={styles.valueText}>0772123123</Text>
+          <Text style={styles.valueText}>{details.phoneNumber}</Text>
         </View>
         <UnderLine />
         <View style={styles.genView}>
           <Text style={styles.keyText}>Region: </Text>
-          <Text style={styles.valueText}>Kabale</Text>
+          <Text style={styles.valueText}>{details.region}</Text>
         </View>
       </TouchableOpacity>
     </View>

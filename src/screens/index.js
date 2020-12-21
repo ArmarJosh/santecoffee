@@ -6,3 +6,5 @@ export {default as AddFarmer} from './home/AddFarmer';
 export {default as Farmers} from './farmers/Farmers';
 export {default as FarmerDetail} from './farmers/FarmerDetail';
 export {default as Profile} from './profile/Profile';
+export {default as UserInfo} from './home/UserInfo';
+export {default as Splash} from './splash/Splash';
