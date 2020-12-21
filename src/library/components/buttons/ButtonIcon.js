@@ -15,7 +15,9 @@ const ButtonIcon = (props) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    //paddingHorizontal: 5,
+  },
   btnView: {
     flexDirection: 'row',
     backgroundColor: R.colors.orange,
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingHorizontal: 10,
   },
   btnText: {
     color: R.colors.white,

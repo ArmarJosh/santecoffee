@@ -97,7 +97,8 @@ class Login extends Component {
               </View>
               <View style={styles.signupView}>
                 <Text style={styles.dontText}>Don't have an account </Text>
-                <TouchableOpacity onPress={() => console.log('Sign up.')}>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.push('SignUp')}>
                   <Text style={styles.signupText}>Sign Up </Text>
                 </TouchableOpacity>
               </View>

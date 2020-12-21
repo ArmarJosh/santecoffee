@@ -7,6 +7,7 @@ const UnderLine = (props) => {
     <View
       style={[
         styles.view,
+        props.viewStyles,
         {backgroundColor: props.strokeColor ? props.strokeColor : colors.white},
         props.styles,
         {marginVertical: props.verticleSpace ? props.verticleSpace : 5},

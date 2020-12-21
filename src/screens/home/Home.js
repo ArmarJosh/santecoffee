@@ -22,7 +22,7 @@ class Home extends Component {
             <ButtonBigger
               title="Register new farmer"
               iconName="account-plus"
-              onPress={() => console.log('register')}
+              onPress={() => this.props.navigation.push('AddFarmer')}
             />
             <ButtonBigger
               title="Get all farmers by region"

@@ -105,7 +105,7 @@ class SignUp extends Component {
               </View>
               <View style={styles.signupView}>
                 <Text style={styles.dontText}>I have an account </Text>
-                <TouchableOpacity onPress={() => console.log('Login.')}>
+                <TouchableOpacity onPress={() => this.props.navigation.pop()}>
                   <Text style={styles.signupText}>Login </Text>
                 </TouchableOpacity>
               </View>

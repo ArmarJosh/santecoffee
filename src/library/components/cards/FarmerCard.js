@@ -6,7 +6,7 @@ import R from 'res/R';
 const FarmerCard = (props) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={props.onPress}>
         <View style={styles.genView}>
           <Text style={styles.keyText}>Name: </Text>
           <Text style={styles.valueText}>Payton latter.</Text>
@@ -14,12 +14,12 @@ const FarmerCard = (props) => {
         <UnderLine />
         <View style={styles.genView}>
           <Text style={styles.keyText}>Phone: </Text>
-          <Text style={styles.valueText}>farmer Card.</Text>
+          <Text style={styles.valueText}>0772123123</Text>
         </View>
         <UnderLine />
         <View style={styles.genView}>
           <Text style={styles.keyText}>Region: </Text>
-          <Text style={styles.valueText}>farmer Card.</Text>
+          <Text style={styles.valueText}>Kabale</Text>
         </View>
       </TouchableOpacity>
     </View>

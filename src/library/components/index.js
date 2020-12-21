@@ -5,3 +5,5 @@ export {default as FarmerCard} from './cards/FarmerCard';
 export {default as UnderLine} from './cards/Underline';
 
 export {default as InputOutline} from './inputs/InputOutline';
+
+export {default as EditPhone} from './modals/EditPhone';
