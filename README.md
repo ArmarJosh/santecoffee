@@ -1,7 +1,7 @@
 # Sante Coffee Merchant app
 
 Developed by _Corry Armar Lawrence_ for the interview question from **Laboremus.**
-This app is already working on firebase with firestore and authentication already done. Developed with React-Native for **Android**
+This app is already working on firebase with firestore and authentication already done. Developed with **React-Native** for **Android.**
 Ounce you run the app, you can sign up for a new account or use this temp one armar@gmail.com pw: 123456
 
 ## How to run the app?
